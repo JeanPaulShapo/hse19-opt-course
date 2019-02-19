@@ -64,15 +64,16 @@ class TestRosenbrockOracle(unittest.TestCase):
     oracle = RosenbrockOracle()
 
     def test_func(self):
-        assert_almost_equal(self.oracle.func(np.zeros(100)), 100)
+        assert_almost_equal(self.oracle.func(np.zeros(100)), 99)
         assert_almost_equal(self.oracle.func(np.ones(100)), 0)
-        assert_almost_equal(self.oracle.func(np.array([0.25, 1.89])), 335.330225)
+        assert_almost_equal(self.oracle.func(np.array([0.25, 1.89])), 334.538125)
 
     def test_grad(self):
-        assert_almost_equal(self.oracle.grad(np.zeros(100)), -2 * np.ones(100))
+        assert_almost_equal(self.oracle.grad(np.zeros(100)),
+                            np.r_[-2 * np.ones(99), 0])
         assert_almost_equal(self.oracle.grad(np.ones(100)), np.zeros(100))
         assert_almost_equal(self.oracle.grad(np.array([0.25, 1.89])),
-                            np.array([-184.25, 367.28]))
+                            np.array([-184.25, 365.5]))
 
 
 class TestNCG(unittest.TestCase):
